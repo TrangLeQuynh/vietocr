@@ -42,18 +42,6 @@ trainer:
     # null to disable compuate accuracy, or change to number of sample to enable validiation while training
     metrics: null
 
-# dataset:    
-#     # name of your dataset
-#     name: data
-#     # path to annotation and image
-#     data_root: ../../Data/vietocr_data/
-#     train_annotation: SelfSynth2_SelfSynth2_txt_Synth_font_from_images_line_annotation.txt
-#     valid_annotation: test_line_annotation.txt
-#     # resize image to 32 height, larger height will increase accuracy
-#     image_height: 32
-#     image_min_width: 32
-#     image_max_width: 1024
-
 dataset:    
     # name of your dataset
     name: data
@@ -65,20 +53,6 @@ dataset:
     image_height: 32
     image_min_width: 32
     image_max_width: 1024
-
-
-# #Data/Data_Synth/synth_text
-# dataset:    
-#     # name of your dataset
-#     name: data
-#     # path to annotation and image
-#     data_root: ../../Data/
-#     train_annotation: Data_Synth/synth_text/train_line_annotation.txt
-#     valid_annotation: vietocr_data/test_line_annotation.txt
-#     # resize image to 32 height, larger height will increase accuracy
-#     image_height: 32
-#     image_min_width: 32
-#     image_max_width: 1024
 
 dataloader:
     num_workers: 3
