@@ -1,0 +1,6 @@
+# Usage: pip install -r requirements.txt
+
+------------------------
+imgaug
+prefetch_generator
+lmdb

@@ -1,0 +1,78 @@
+# change to list chars of your dataset or use default vietnamese chars
+vocab: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 `\|":./%;-~!@#$^&?<>*()_+={}[],'
+
+weights: 'pretrained/vgg11_seq2seq_base.pth'
+pretrain: 'pretrained/vgg11_seq2seq_base.pth'
+
+device: cuda
+
+backbone: vgg11_bn
+cnn:
+    # pooling stride size
+    ss:
+        - [2, 2]
+        - [2, 2]
+        - [2, 1]
+        - [2, 1]
+        - [1, 1]         
+    # pooling kernel size 
+    ks:
+        - [2, 2]
+        - [2, 2]
+        - [2, 1]
+        - [2, 1]
+        - [1, 1]
+    # dim of ouput feature map
+    hidden: 256
+    pretrained: True
+
+seq_modeling: seq2seq
+transformer:
+    encoder_hidden: 256
+    decoder_hidden: 256
+    img_channel: 256
+    decoder_embedded: 256
+    dropout: 0.1
+
+optimizer:
+    #max_lr: 0.001
+    max_lr: 0.001
+    pct_start: 0.1
+    
+trainer:
+    batch_size: 32
+    print_every: 200
+    valid_every: 4000
+    iters: 150000
+    # where to save our model for predi_ction
+    export: ./weights/vgg11_seq2seq.pth
+    checkpoint: ./checkpoint/vgg11_seq2seq.pth
+    log: ./train.log
+    # null to disable compuate accuracy, or change to number of sample to enable validiation while training
+    metrics: null
+
+dataset:    
+    # name of your dataset
+    name: data
+    # path to annotation and image
+    data_root: ../../Data/vietocr_data/
+    train_annotation: SelfSynth2_SelfSynth2_txt_Synth_font_from_images_line_annotation.txt
+    valid_annotation: test_line_annotation.txt
+    # resize image to 32 height, larger height will increase accuracy
+    image_height: 32
+    image_min_width: 32
+    image_max_width: 1024
+
+dataloader:
+    num_workers: 3
+    pin_memory: True
+
+aug:
+    image_aug: true
+    masked_language_model: true
+
+predictor:
+    # disable or enable beamsearch while prediction, use beamsearch will be slower
+    beamsearch: False
+
+quiet: False 

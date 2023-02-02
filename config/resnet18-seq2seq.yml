@@ -1,0 +1,95 @@
+# change to list chars of your dataset or use default vietnamese chars
+vocab: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 `\|":./%;-~!@#$^&?<>*()_+={}[],'
+
+weights: 'pretrained/resnet18seq2seq_30_1(2).pth'
+pretrain: 'pretrained/resnet18seq2seq_30_1(2).pth'
+
+# cpu, cuda, cuda:0
+device: cpu
+
+seq_modeling: seq2seq
+transformer:
+    encoder_hidden: 256
+    decoder_hidden: 256
+    img_channel: 256
+    decoder_embedded: 256
+    dropout: 0.1
+
+backbone: resnet18
+cnn:
+    ss:
+        - [2, 2]
+        - [2, 1]
+        - [2, 1]
+        - [2, 1]
+        - [1, 1]          
+    hidden: 256
+
+optimizer:
+    #max_lr: 0.001
+    max_lr: 0.0003
+    pct_start: 0.1
+    
+trainer:
+    batch_size: 64
+    print_every: 200
+    valid_every: 4000
+    iters: 100000
+    # where to save our model for predi_ction
+    export: ./weights/resnet18seq2seq.pth
+    checkpoint: ./checkpoint/res18netseq2seq.pth
+    log: ./train.log
+    # null to disable compuate accuracy, or change to number of sample to enable validiation while training
+    metrics: null
+
+# dataset:    
+#     # name of your dataset
+#     name: data
+#     # path to annotation and image
+#     data_root: ../../Data/vietocr_data/
+#     train_annotation: SelfSynth2_SelfSynth2_txt_Synth_font_from_images_line_annotation.txt
+#     valid_annotation: test_line_annotation.txt
+#     # resize image to 32 height, larger height will increase accuracy
+#     image_height: 32
+#     image_min_width: 32
+#     image_max_width: 1024
+
+dataset:    
+    # name of your dataset
+    name: data
+    # path to annotation and image
+    data_root: ../../Data/vietocr_data/
+    train_annotation: SelfSynth2_Synth_font_from_images_line_annotation.txt
+    valid_annotation: test_line_annotation.txt
+    # resize image to 32 height, larger height will increase accuracy
+    image_height: 32
+    image_min_width: 32
+    image_max_width: 1024
+
+
+# #Data/Data_Synth/synth_text
+# dataset:    
+#     # name of your dataset
+#     name: data
+#     # path to annotation and image
+#     data_root: ../../Data/
+#     train_annotation: Data_Synth/synth_text/train_line_annotation.txt
+#     valid_annotation: vietocr_data/test_line_annotation.txt
+#     # resize image to 32 height, larger height will increase accuracy
+#     image_height: 32
+#     image_min_width: 32
+#     image_max_width: 1024
+
+dataloader:
+    num_workers: 3
+    pin_memory: True
+
+aug:
+    image_aug: true
+    masked_language_model: true
+
+predictor:
+    # disable or enable beamsearch while prediction, use beamsearch will be slower
+    beamsearch: False
+
+quiet: False 
