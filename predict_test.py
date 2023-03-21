@@ -9,7 +9,6 @@ from vietocr.tool.utils import compute_accuracy
 def replace(s, ch):
     new_str = []
     l = len(s)
-     
     for i in range(len(s)):
         if (s[i] == ch and i != (l-1) and
            i != 0 and s[i + 1] != ch and s[i-1] != ch):
