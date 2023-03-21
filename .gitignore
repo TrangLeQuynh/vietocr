@@ -144,3 +144,5 @@ cython_debug/
 **/incorrect/
 
 pretrained/
+train_data
+valid_data

@@ -223,10 +223,25 @@ class ResNet_18(nn.Module):
         x = self.conv4_1(x)
         x = self.bn4_1(x)
         conv = self.relu(x)
-        
+
+
+        # conv = conv.transpose(-1, -2)
+        # conv = conv.flatten(2)
+        # conv = conv.permute(-1, 0, 1)
+
+        """
         conv = conv.transpose(-1, -2)
         conv = conv.flatten(2)
         conv = conv.permute(-1, 0, 1)
+
+        #custom
+        conv = conv.permute(0, 1, 3, 2)
+        conv = conv.flatten(2)
+        conv = conv.permute(2, 0, 1)
+        """
+        conv = conv.permute(0, 1, 3, 2)
+        conv = conv.flatten(2)
+        conv = conv.permute(2, 0, 1)
         
         return conv
 
