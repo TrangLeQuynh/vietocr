@@ -178,7 +178,7 @@ class Trainer():
                 translated_sentence = batch_translate_beam_search(batch['img'], self.model)
                 prob = None
             else:
-                translated_sentence, prob = translate(batch['img'], self.model)
+                translated_sentence, prob, _ = translate(batch['img'], self.model)
 
             pred_sent = self.vocab.batch_decode(translated_sentence.tolist())
             actual_sent = self.vocab.batch_decode(batch['tgt_output'].tolist())

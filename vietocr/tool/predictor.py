@@ -1,6 +1,5 @@
 from vietocr.tool.translate import build_model, translate, translate_beam_search, process_input, predict
 from vietocr.tool.utils import download_weights
-
 import torch
 from collections import defaultdict
 
@@ -39,7 +38,6 @@ class Predictor():
             prob = prob[0]
 
         s = self.vocab.decode(s)
-        
         if return_prob:
             return s, prob, char_prob
         else:
