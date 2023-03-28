@@ -1,9 +1,7 @@
 import matplotlib.pyplot as plt
 from PIL import Image
 import torch
-import onnxruntime
 import numpy as np
-import onnx
 from vietocr.tool.translate import *
 from vietocr.tool.config import Cfg
 import argparse
@@ -11,7 +9,12 @@ import torch
 import matplotlib.pyplot as plt
 import cv2
 from torch.nn.functional import softmax
-
+# ONNX: pip install onnx, onnxruntime
+try:
+  import onnx
+  import onnxruntime
+except ImportError as e:
+  raise ImportError(f'Please install onnx and onnxruntime first. {e}')
 
 def read_model(config):
   # config['cnn']['pretrained']=False
