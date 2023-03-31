@@ -22,7 +22,8 @@ class Encoder(nn.Module):
         
         outputs, hidden = self.rnn(embedded)
                                  
-        hidden = torch.tanh(self.fc(torch.cat((hidden[-2,:,:], hidden[-1,:,:]), dim = 1)))
+        # hidden = torch.tanh(self.fc(torch.cat((hidden[-2,:,:], hidden[-1,:,:]), dim = 1)))
+        hidden = torch.tanh(self.fc(torch.cat((hidden[0,:,:], hidden[1,:,:]), dim = 1)))
         
         return outputs, hidden
 

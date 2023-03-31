@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from PIL import Image
 import torch
 import numpy as np
@@ -6,8 +6,7 @@ from vietocr.tool.translate import *
 from vietocr.tool.config import Cfg
 import argparse
 import torch
-import matplotlib.pyplot as plt
-import cv2
+# import cv2
 from torch.nn.functional import softmax
 # ONNX: pip install onnx, onnxruntime
 try:
@@ -90,7 +89,6 @@ def convert_encoder_part(model, src, save_path):
 """
 def convert_decoder_part(model, tgt, hidden, encoder_outputs, save_path):
   tgt = tgt[-1]
-  
   torch.onnx.export(model.transformer.decoder,
     (tgt, hidden, encoder_outputs),
     save_path,
@@ -104,17 +102,6 @@ def convert_decoder_part(model, tgt, hidden, encoder_outputs, save_path):
       'last': {0: 'channel_output'}
     })
   
-# But before verifying the model’s output with ONNX Runtime, we will check the ONNX model with ONNX’s API. 
-def verify_onnx_model(model_path):
-  # Load the ONNX model
-  onnx_model = onnx.load(model_path)
-
-  # Check that the model is well formed
-  onnx.checker.check_model(onnx_model) # verify the model’s structure and confirm that the model has a valid schema
-
-  # Print a human readable representation of the graph
-  print(onnx.helper.printable_graph(onnx_model.graph))
-
 def run_onnx_converter():
   parser = argparse.ArgumentParser()
   parser.add_argument('--config', required=True, help='foo help')  
@@ -123,14 +110,13 @@ def run_onnx_converter():
 
   model = read_model(config)
 
-  img = torch.rand(1, 3, 32, 170)
+  img = torch.rand(1, 3, 32, 256)
 
   save_path = 'cnn.onnx'
   src = convert_cnn_part(img, save_path, model)
 
   save_path = 'encoder.onnx'
   hidden, encoder_outputs = convert_encoder_part(model, src, save_path)
-
   tgt = torch.LongTensor([[1] * len(img)])
   save_path = 'decoder.onnx'
   convert_decoder_part(model, tgt, hidden, encoder_outputs, save_path)
@@ -184,10 +170,10 @@ def test_converter_onnx(show_img = False):
 
   img_path = 'vietocr/tests/image/test2.jpeg'
   img = Image.open(img_path)  
-  if show_img:
-    plt.figure()
-    plt.imshow(img) 
-    plt.show()  # display it
+  # if show_img:
+  #   plt.figure()
+  #   plt.imshow(img) 
+  #   plt.show()  # display it
   img = process_input(img, 32, 32, 1024) 
 
   cnn_session = onnxruntime.InferenceSession("cnn.onnx")
