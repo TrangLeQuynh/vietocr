@@ -70,7 +70,7 @@ def beamsearch(memory, model, device, beam_size=4, candidates=1, max_seq_length=
     
     return [1] + [int(i) for i in hypothesises[0][:-1]]
 
-def translate(img, model, max_seq_length=2, sos_token=1, eos_token=2):
+def translate(img, model, max_seq_length=128, sos_token=1, eos_token=2):
     "data: BxCXHxW"
     model.eval()
     device = img.device
@@ -127,7 +127,6 @@ def build_model(config):
             config['seq_modeling'])
     
     model = model.to(device)
-
     return model, vocab
 
 def resize(w, h, expected_height, image_min_width, image_max_width):

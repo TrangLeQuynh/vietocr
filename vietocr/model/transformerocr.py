@@ -14,7 +14,6 @@ class VietOCR(nn.Module):
         
         self.cnn = CNN(backbone, **cnn_args)
         self.seq_modeling = seq_modeling
-
         if seq_modeling == 'transformer':
             self.transformer = LanguageTransformer(vocab_size, **transformer_args)
         elif seq_modeling == 'seq2seq':
