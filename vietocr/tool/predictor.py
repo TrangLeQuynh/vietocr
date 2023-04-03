@@ -15,7 +15,6 @@ class Predictor():
             weights = download_weights(config['weights'])
         else:
             weights = config['weights']
-
         model.load_state_dict(torch.load(weights, map_location=torch.device(device)))
 
         self.config = config

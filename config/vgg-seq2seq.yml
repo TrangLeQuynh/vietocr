@@ -4,7 +4,10 @@ vocab: 'aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦ�
 device: cpu
 
 # url or local path (for predict)
-weights: weights/vgg_seq2seq.pth
+pretrain: pretrained/vgg_seq2seq.pth
+weights: pretrained/vgg_seq2seq.pth
+# pretrain: https://vocr.vn/data/vietocr/vgg_seq2seq.pth
+# weights: https://vocr.vn/data/vietocr/vgg_seq2seq.pth
 
 backbone: vgg19_bn
 cnn:

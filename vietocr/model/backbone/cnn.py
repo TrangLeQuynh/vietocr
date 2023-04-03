@@ -9,7 +9,6 @@ from vietocr.model.backbone.mobilenetv2 import MobileNetV2
 class CNN(nn.Module):
     def __init__(self, backbone, **kwargs):
         super(CNN, self).__init__()
-
         if backbone == 'vgg11_bn':
             self.model = vgg.vgg11_bn(**kwargs)
         elif backbone == 'vgg19_bn':

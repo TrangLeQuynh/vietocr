@@ -37,9 +37,19 @@ class Vgg(nn.Module):
         conv = self.last_conv_1x1(conv)
 
 #        conv = rearrange(conv, 'b d h w -> b d (w h)')
+        """
         conv = conv.transpose(-1, -2)
         conv = conv.flatten(2)
         conv = conv.permute(-1, 0, 1)
+
+        #custom
+        conv = conv.permute(0, 1, 3, 2)
+        conv = conv.flatten(2)
+        conv = conv.permute(2, 0, 1)
+        """
+        conv = conv.permute(0, 1, 3, 2)
+        conv = conv.flatten(2)
+        conv = conv.permute(2, 0, 1)
         return conv
 
 def vgg11_bn(ss, ks, hidden, pretrained=True, dropout=0.5):

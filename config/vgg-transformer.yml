@@ -1,8 +1,10 @@
 # for training
-pretrain: https://vocr.vn/data/vietocr/vgg_transformer.pth
-
+# pretrain: https://vocr.vn/data/vietocr/vgg_transformer.pth
 # url or local path (predict)
-weights: https://vocr.vn/data/vietocr/vgg_transformer.pth
+# weights: https://vocr.vn/data/vietocr/vgg_transformer.pth
+
+pretrain: 'pretrained/vgg_transformer.pth'
+weights: 'pretrained/vgg_transformer.pth'
 
 backbone: vgg19_bn
 cnn:
@@ -23,4 +25,4 @@ cnn:
         - [1, 1]
     # dim of ouput feature map
     hidden: 256
-
+    
